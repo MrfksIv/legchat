@@ -1,0 +1,68 @@
+
+<mat-drawer-container class="mat-drawer-container" [hasBackdrop]="false">
+  <mat-drawer #drawer  class="sidenav" [mode]="mode.value">
+
+      <mat-accordion class="example-headers-align" *ngIf="currentUsers.length > 0">
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle
+            *ngFor="let user of currentUsers">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>account_circle</mat-icon> {{user[0].username}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <span>
+                  {{user[0].firstName}} {{user[0].lastName}} <br>
+                  Team: {{user[0].team}}
+              </span>
+            </mat-expansion-panel>
+      </mat-accordion>
+      
+      <!-- <a *ngFor="let user of currentUsers">{{user[0].username}}</a> -->
+            
+      <p><button mat-button (click)="drawer.toggle()">Toggle</button></p>
+  </mat-drawer>
+  
+    <div class="sidenav-content">
+      <button mat-fab (click)="drawer.toggle()">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-card class="main-card">
+        <mat-card-content style="height: 80%">
+        <mat-list class="chat-list">
+          <mat-list-item *ngFor="let message of messages" [ngClass]="[(message.action === undefined && message.from.id === user.id)? 'chat-list-item': '']">
+            <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
+            <h4 mat-line *ngIf="message.action === undefined">
+              <b>{{message.from.name}}</b>
+            </h4>
+            <p mat-line *ngIf="message.action === undefined">
+              <span> {{message.content}} </span>
+            </p>
+            <p mat-line *ngIf="message.action === action.JOINED" class="chat-notification">
+              <span> <b>{{message.from.name}}</b> joined to the conversation. </span>
+            </p>
+            <p mat-line *ngIf="message.action === action.RENAME" class="chat-notification">
+              <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>
+            </p>
+          </mat-list-item>
+        </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+        <div class="chat-footer-container">
+          <mat-divider></mat-divider>
+          <mat-icon>message</mat-icon>
+          <mat-form-field class="chat-input">
+            <input matInput 
+                  #inputMessage 
+                  maxlength="140" 
+                  placeholder="Type your message" 
+                  [(ngModel)]="messageContent" 
+                  (keyup.enter)="sendMessage(messageContent)">
+            <mat-hint align="end">{{inputMessage.value.length}}/140</mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-actions>
+      </mat-card>
+    </div>
+    
+
+</mat-drawer-container>

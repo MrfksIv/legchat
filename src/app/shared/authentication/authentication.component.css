@@ -1,0 +1,30 @@
+.tab-container {
+    width: 80%;
+    /* height:50%; */
+    margin: 7vh auto;
+    max-width:550px; 
+    /* max-height:650px; */
+    border: 2px solid #eee;
+    border-radius: 2px;
+}
+
+.container {
+    background:yellow;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.auth-form-container {
+    width: 74%;
+    flex-direction: column;
+    margin: 5vh auto;
+    
+}
+
+.auth-form-container > * {
+    width: 100%;
+  }
